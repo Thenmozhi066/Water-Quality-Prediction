@@ -1,0 +1,4 @@
+
+Dataset Link:
+	* https://www.kaggle.com/datasets/adityakadiwal/water-potability/data
+	* https://www.kaggle.com/datasets/mitanshuchakrawarty/water-quality-prediction
