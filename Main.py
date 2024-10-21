@@ -106,7 +106,7 @@ if an == 1:
     np.save('Fitness.npy', fitness)
 
 ## Classification ##
-an = 1
+an = 0
 if an == 1:
     Eval = []
     for k in range(no_of_dataset):
@@ -134,7 +134,7 @@ if an == 1:
             EVAL[8, :] = Model_SRFCAA_LSTM(train_data, train_target, test_data, test_target)
             EVAL[9, :] = EVAL[4, :]
             Eval.append(EVAL)
-    np.save('Eval_ALL_Act.npy', Eval)
+    np.save('Eval_pred.npy', Eval)
 
 plot_results_conv()
 Plot_ROC()
