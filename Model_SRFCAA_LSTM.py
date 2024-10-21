@@ -1,9 +1,7 @@
 import numpy as np
 from tf_keras import Sequential, Input
 from tf_keras.src.layers import Dense, LSTM
-
-from Evaluation_All import evaluation
-
+from Evaluation_pred import error_evaluation
 
 def Spatial_Temporal(Train_X, sol):
     # Synthetic spatial data (e.g., 10x10 grids)
@@ -27,7 +25,7 @@ def Model_SRFCAA_LSTM(train_data, train_target, test_data, test_target, sol = No
 
     pred[pred >= 0.5] = 1
     pred[pred < 0.5] = 0
-    Eval = evaluation(pred.reshape(-1, 1), test_target)
+    Eval = error_evaluation(pred.reshape(-1, 1), test_target)
     return Eval
 
 
