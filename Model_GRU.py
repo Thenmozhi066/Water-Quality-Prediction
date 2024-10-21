@@ -2,8 +2,7 @@
 import numpy as np
 from tf_keras import Sequential
 from tf_keras.src.layers import GRU, Dropout, Dense
-
-from Evaluation_All import evaluation
+from Evaluation_pred import error_evaluation
 
 def Model_GRU(X_train, y_train, X_test, Y_test):
     print('GRU')
@@ -26,5 +25,5 @@ def Model_GRU(X_train, y_train, X_test, Y_test):
     pred = np.reshape(pred, (pred.shape[0], pred.shape[2]))
     pred[pred >= 0.5] = 1
     pred[pred < 0.5] = 0
-    Eval = evaluation(pred, Y_test)
+    Eval = error_evaluation(pred, Y_test)
     return Eval
