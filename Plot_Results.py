@@ -195,43 +195,38 @@ def Plot_table():
 
 
 def Plot_Alg():
+    no_of_dataset = 2
     for i in range(no_of_dataset):
         Eval = np.load('Eval_ALL_Act.npy', allow_pickle=True)[i]
         Terms = ['Accuracy', 'Sensitivity', 'Specificity', 'Precision', 'FPR', 'FNR', 'NPV', 'FDR', 'F1_score', 'MCC',
-                 'FOR', 'pt',
-                 'ba', 'fm', 'bm', 'mk', 'PLHR', 'lrminus', 'dor', 'prevalence', 'TS']
+                 'FOR', 'pt', 'ba', 'fm', 'bm', 'mk', 'PLHR', 'lrminus', 'dor', 'prevalence', 'TS']
         Graph_Term = [0, 1, 2, 3, 4, 5]
-        # Algorithm = ['TERMS','TFMOA-ARAN', 'SCO-ARAN', 'FFO-ARAN', 'GSOA-ARAN', 'IGSOA-ARAN']
-        # Classifier = ['TERMS','CNN', 'Densenet', 'MobileNet', 'RAN', 'IGSOA-ARAN']
-        Eval = np.load('Eval_ALL_Act.npy', allow_pickle=True)[i]
-        BATCH = [ 1, 2, 3, 4, 5]
+        BATCH = [1, 2, 3, 4, 5]
+        width = 0.15  # Width of each bar in the histogram
         for j in range(len(Graph_Term)):
             Graph = np.zeros((Eval.shape[0], Eval.shape[1]))
             for k in range(Eval.shape[0]):
                 for l in range(Eval.shape[1]):
                     Graph[k, l] = Eval[k, l, Graph_Term[j] + 4]
-            X = np.arange(5)
-            plt.plot(BATCH, Graph[:, 0], color='purple', linewidth=3, marker='.', markerfacecolor='k',
-                     markersize=16,
-                     label='POA-SRF-CAALSTM')
-            plt.plot(BATCH, Graph[:, 1], color='DeepPink', linewidth=3, marker='.', markerfacecolor='k',
-                     markersize=16,
-                     label='HCO-SRF-CAALSTM')
-            plt.plot(BATCH, Graph[:, 2], color='cyan', linewidth=3, marker='.', markerfacecolor='k',
-                     markersize=16,
-                     label='DO-SRF-CAALSTM')
-            plt.plot(BATCH, Graph[:, 3], color='red', linewidth=3, marker='.', markerfacecolor='k', markersize=16,
-                     label='OOA-SRF-CAALSTM')
-            plt.plot(BATCH, Graph[:, 4], color='k', linewidth=3, marker='.', markerfacecolor='white',
-                     markersize=16,
-                     label="IOOA-SRF-CAALSTM")
+
+            X = np.arange(len(BATCH))  # The x locations for the groups
+
+            plt.bar(X - 2*width, Graph[:, 0], width, color='purple', label='POA-SRF-CAALSTM')
+            plt.bar(X - width, Graph[:, 1], width, color='DeepPink', label='HCO-SRF-CAALSTM')
+            plt.bar(X, Graph[:, 2], width, color='cyan', label='DO-SRF-CAALSTM')
+            plt.bar(X + width, Graph[:, 3], width, color='red', label='OOA-SRF-CAALSTM')
+            plt.bar(X + 2*width, Graph[:, 4], width, color='k', label="IOOA-SRF-CAALSTM")
+
             plt.xlabel('Activation Function')
-            plt.xticks(X + 1, ('Linear', 'ReLU', 'Tanh', 'Softmax', 'Sigmoid'))
-            # plt.xticks(BATCH, ('4', '8', '16', '32', '48'))
+            plt.xticks(X, ('Linear', 'ReLU', 'Tanh', 'Softmax', 'Sigmoid'))  # Set x-ticks to correspond to activations
             plt.ylabel(Terms[Graph_Term[j]])
+
+            # Display legend
             plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15),
                        ncol=3, fancybox=True, shadow=True)
-            path = "./Results/Dataset_%s_%s_line_1.png" % ((str(i + 1)), Terms[Graph_Term[j]])
+
+            # Save the plot as an image file
+            path = "./Results/Dataset_%s_%s_histogram.png" % ((str(i + 1)), Terms[Graph_Term[j]])
             plt.savefig(path)
             plt.show()
 
