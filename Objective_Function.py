@@ -24,5 +24,5 @@ def Objective_cls(Soln):
         test_data = image[:learnper, :]
         test_target = target[:learnper, :]
         Eval = Model_SRFCAA_LSTM(train_data, train_target, test_data, test_target, sol.astype('int'))
-        Fitn[i] = 1 / Eval[4]
+        Fitn[i] = 1 / Eval[0]
     return Fitn
