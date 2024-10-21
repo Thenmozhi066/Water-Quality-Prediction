@@ -1,7 +1,7 @@
 # from keras.utils import to_categorical
 import numpy as np
 from keras import backend as K
-from Evaluation_All import evaluation
+from Evaluation_pred import error_evaluation
 from dbn.tensorflow import SupervisedDBNClassification
 
 
@@ -22,7 +22,7 @@ def Model_DBN(Train_Data, Train_Target, Test_Data, Test_Target, soln=None):
         pred[:, i] = classifier.predict(Test_Data)
     pred[pred >= 0.5] = 1
     pred[pred < 0.5] = 0
-    Eval = evaluation(pred, Test_Target)
+    Eval = error_evaluation(pred, Test_Target)
     return Eval
 
 
