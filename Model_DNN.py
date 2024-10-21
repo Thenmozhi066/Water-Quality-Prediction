@@ -2,8 +2,7 @@ import numpy as np
 import random as random
 
 from Neural_Network import NeuralNetwork
-
-from Evaluation_All import evaluation
+from Evaluation_pred import error_evaluation
 
 
 def Model_DNN(data, labels, test_data, test_target, sol=None):
@@ -34,7 +33,7 @@ def Model_DNN(data, labels, test_data, test_target, sol=None):
         else:
             predict[i] = 0
     Pred = np.round(predict)
-    Eval = evaluation(Pred.reshape(-1, 1), test_target)
+    Eval = error_evaluation(Pred.reshape(-1, 1), test_target)
     return Eval
 
 
